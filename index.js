@@ -14,6 +14,18 @@ newButton.addEventListener('click', () => {
 
 addButton.addEventListener('click', (event) => {
   event.preventDefault();
+  const title = document.getElementById('title').value;
+  const author = document.getElementById('author').value;
+  const pages = document.getElementById('pages').value;
+  const read = document.getElementById('read').checked;
+
+  console.log(
+    `Title: ${title}, Author: ${author}, Pages: ${pages}, Read: ${read}`
+  );
+
+  addBookToLibrary(title, author, pages, read);
+  showBooks();
+  bookForm.close();
 });
 
 function Book(title, author, pages, read) {
@@ -32,9 +44,14 @@ function addBookToLibrary(title, author, pages, read) {
 }
 
 function showBooks() {
+  while (bookList.firstChild) {
+    bookList.removeChild(bookList.firstChild);
+  }
   for (let i = 0; i < myLibrary.length; i++) {
     const newLi = document.createElement('li');
     bookList.insertAdjacentElement('beforeend', newLi);
     newLi.innerText = myLibrary[i].info();
   }
 }
+
+showBooks();
