@@ -48,9 +48,17 @@ function showBooks() {
     bookList.removeChild(bookList.firstChild);
   }
   for (let i = 0; i < myLibrary.length; i++) {
+    const btn = document.createElement('button');
+    btn.innerText = 'remove';
+    btn.setAttribute('id', `remove-btn-${i}`);
+    btn.addEventListener('click', () => {
+      myLibrary.splice(i, 1);
+      showBooks();
+    });
     const newLi = document.createElement('li');
     bookList.insertAdjacentElement('beforeend', newLi);
     newLi.innerText = myLibrary[i].info();
+    newLi.appendChild(btn);
   }
 }
 
