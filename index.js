@@ -3,7 +3,18 @@ const myLibrary = [
   new Book('No Logo', 'Naomi Klein', 536, 'true'),
 ];
 
+const newButton = document.getElementById('newBook');
+const addButton = document.getElementById('addBook');
+const bookForm = document.getElementById('bookDialog');
 const bookList = document.getElementById('bookList');
+
+newButton.addEventListener('click', () => {
+  bookForm.showModal();
+});
+
+addButton.addEventListener('click', (event) => {
+  event.preventDefault();
+});
 
 function Book(title, author, pages, read) {
   this.title = title;
