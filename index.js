@@ -19,10 +19,6 @@ addButton.addEventListener('click', (event) => {
   const pages = document.getElementById('pages').value;
   const read = document.getElementById('read').checked;
 
-  console.log(
-    `Title: ${title}, Author: ${author}, Pages: ${pages}, Read: ${read}`
-  );
-
   addBookToLibrary(title, author, pages, read);
   showBooks();
   bookForm.close();
@@ -32,9 +28,12 @@ function Book(title, author, pages, read) {
   this.title = title;
   this.author = author;
   this.pages = pages;
-  this.read = read;
+  this.read = read === 'true' ? true : false;
   this.info = function () {
-    return `${title} by ${author}, ${pages} pages, ${read}`;
+    return `${this.title} by ${this.author}, ${this.pages} pages, ${this.read}`;
+  };
+  this.toggleRead = function () {
+    this.read = !this.read;
   };
 }
 
@@ -44,21 +43,28 @@ function addBookToLibrary(title, author, pages, read) {
 }
 
 function showBooks() {
-  while (bookList.firstChild) {
-    bookList.removeChild(bookList.firstChild);
-  }
+  bookList.innerHTML = '';
+
   for (let i = 0; i < myLibrary.length; i++) {
-    const btn = document.createElement('button');
-    btn.innerText = 'remove';
-    btn.setAttribute('id', `remove-btn-${i}`);
-    btn.addEventListener('click', () => {
+    const toggleBtn = document.createElement('button');
+    toggleBtn.innerText = 'Read?';
+    toggleBtn.setAttribute('id', `toggle-btn-${i}`);
+    toggleBtn.addEventListener('click', () => {
+      myLibrary[i].toggleRead();
+      showBooks();
+    });
+    const removeBtn = document.createElement('button');
+    removeBtn.innerText = 'Remove';
+    removeBtn.setAttribute('id', `remove-btn-${i}`);
+    removeBtn.addEventListener('click', () => {
       myLibrary.splice(i, 1);
       showBooks();
     });
     const newLi = document.createElement('li');
     bookList.insertAdjacentElement('beforeend', newLi);
     newLi.innerText = myLibrary[i].info();
-    newLi.appendChild(btn);
+    newLi.appendChild(toggleBtn);
+    newLi.appendChild(removeBtn);
   }
 }
 
