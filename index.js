@@ -1,7 +1,4 @@
-const myLibrary = [
-  new Book('The Hobbit', 'J.R.R Tolkien', 295, 'false'),
-  new Book('No Logo', 'Naomi Klein', 536, 'true'),
-];
+const myLibrary = [];
 
 const newButton = document.getElementById('newBook');
 const addButton = document.getElementById('addBook');
@@ -28,7 +25,7 @@ function Book(title, author, pages, read) {
   this.title = title;
   this.author = author;
   this.pages = pages;
-  this.read = read === 'true' ? true : false;
+  this.read = read;
   this.info = function () {
     return `${this.title} by ${this.author}, ${this.pages} pages, ${this.read}`;
   };
