@@ -21,17 +21,21 @@ addButton.addEventListener('click', (event) => {
   bookForm.close();
 });
 
-function Book(title, author, pages, read) {
-  this.title = title;
-  this.author = author;
-  this.pages = pages;
-  this.read = read;
-  this.info = function () {
-    return `${this.title} by ${this.author}, ${this.pages} pages, ${this.read}`;
-  };
-  this.toggleRead = function () {
+class Book {
+  constructor(title, author, pages, read) {
+    this.title = title;
+    this.author = author;
+    this.pages = pages;
+    this.read = read;
+  }
+  get info() {
+    return `${this.title} by ${this.author}, ${this.pages} pages, ${
+      this.read ? 'read' : 'not read'
+    }`;
+  }
+  toggleRead() {
     this.read = !this.read;
-  };
+  }
 }
 
 function addBookToLibrary(title, author, pages, read) {
@@ -59,7 +63,7 @@ function showBooks() {
     });
     const newLi = document.createElement('li');
     bookList.insertAdjacentElement('beforeend', newLi);
-    newLi.innerText = myLibrary[i].info();
+    newLi.innerText = myLibrary[i].info;
     newLi.appendChild(toggleBtn);
     newLi.appendChild(removeBtn);
   }
